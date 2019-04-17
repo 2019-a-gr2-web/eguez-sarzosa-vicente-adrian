@@ -1,4 +1,4 @@
-import {Controller, Get, HttpCode, Post, Put, Delete, Headers} from '@nestjs/common';
+import {Controller, Get, HttpCode, Post, Put, Delete, Headers, Query} from '@nestjs/common';
 import {AppService} from './app.service';
 
 // http://192.168.1.10:3000/segmentoInicial/segmentoAccion
@@ -38,7 +38,7 @@ export class AppController {
         console.log('Headers: ', headers);
         const numeroRandomico =  Math.round(Math.random()*10);
         const numeroDeCabecera = Number(headers.numero);
-        
+
         if( numeroDeCabecera == numeroRandomico){
             return 'Ok';
         }else{
@@ -47,6 +47,20 @@ export class AppController {
 
 
     }
+
+    // ?llave=valor&llave2=valor2
+    @Post('/consultar')
+    consultar(@Query() queryParams){
+        console.log(queryParams);
+        if(queryParams.nombre){
+            return `Hola ${queryParams.nombre}`
+        }else{
+            return 'Hola extraño'
+        }
+    }
+
+
+
 
 
     // js -> ts
