@@ -1,4 +1,17 @@
-import {Controller, Get, HttpCode, Post, Put, Delete, Headers, Query} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    HttpCode,
+    Post,
+    Put,
+    Delete,
+    Headers,
+    Query,
+    Param,
+    Body,
+    Request,
+    Response
+} from '@nestjs/common';
 import {AppService} from './app.service';
 
 // http://192.168.1.10:3000/segmentoInicial/segmentoAccion
@@ -36,12 +49,12 @@ export class AppController {
     @Get('/adivina')  // METODO HTTP
     adivina(@Headers() headers): string {
         console.log('Headers: ', headers);
-        const numeroRandomico =  Math.round(Math.random()*10);
+        const numeroRandomico = Math.round(Math.random() * 10);
         const numeroDeCabecera = Number(headers.numero);
 
-        if( numeroDeCabecera == numeroRandomico){
+        if (numeroDeCabecera == numeroRandomico) {
             return 'Ok';
-        }else{
+        } else {
             return ':(';
         }
 
@@ -50,13 +63,58 @@ export class AppController {
 
     // ?llave=valor&llave2=valor2
     @Post('/consultar')
-    consultar(@Query() queryParams){
+    consultar(@Query() queryParams) {
         console.log(queryParams);
-        if(queryParams.nombre){
+        if (queryParams.nombre) {
             return `Hola ${queryParams.nombre}`
-        }else{
+        } else {
             return 'Hola extraño'
         }
+    }
+
+    @Get('/ciudad/:idCiudad')
+    ciudad(@Param() parametrosRuta) {
+        switch (parametrosRuta.idCiudad.toLowerCase()) {
+            case 'quito':
+                return 'Que fueff';
+            case 'guayaquil':
+                return 'Que maah ñañoshh';
+            default:
+                return 'Buenas tardes';
+        }
+    }
+
+    @Post('registroComida')
+    registroComida(
+        @Body() parametrosCuerpo,
+        @Response() response
+    ) {
+        if (parametrosCuerpo.nombre && parametrosCuerpo.cantidad) {
+            const cantidad = Number(parametrosCuerpo.cantidad);
+            if (cantidad > 1) {
+                response.set('Premio', 'Fanesca');
+            }
+            return response.send({mensaje: 'Registro Creado'});
+        } else {
+            return response.status(400)
+                .send({
+                    mensaje: 'ERROR, no envia nombre o cantidad',
+                    error: 400
+                });
+        }
+
+    }
+
+    @Get('/semilla')
+    semilla(@Request() request){
+        console.log(request.cookies);
+        const cookies = request.cookies;
+        if(cookies.micookie){
+            return 'ok'
+        }else{
+            return ':('
+        }
+
     }
 
 
@@ -64,10 +122,6 @@ export class AppController {
 
 
     // js -> ts
-
-
-
-
 
 
     /*
@@ -115,26 +169,26 @@ class usuario{
 */
 
 const json = [
-        {
-            llave: 'valor',
-            "key": "value",
-            'nombre': "Adrian\"\"",
-            edad: 29,
-            sueldo: 10.21,
-            casado: false,
-            hijos: null,
-            mascotas: [
-                "cachetes",
-                1,
-                1.01,
-                false,
-                null,
-                {
-                    "nombre":"cachetes"
-                },
-            ],
-        },
-    ];
+    {
+        llave: 'valor',
+        "key": "value",
+        'nombre': "Adrian\"\"",
+        edad: 29,
+        sueldo: 10.21,
+        casado: false,
+        hijos: null,
+        mascotas: [
+            "cachetes",
+            1,
+            1.01,
+            false,
+            null,
+            {
+                "nombre": "cachetes"
+            },
+        ],
+    },
+];
 
 // JS -> JSON
 
@@ -142,12 +196,12 @@ let adrian = 'Adrian';
 
 // TS
 
-let vicente:any = 'Vicente';
+let vicente: any = 'Vicente';
 vicente = 1;
 
-let objeto:any = {
-    propiedad:'valor',
-    propiedadDos:'valor2'
+let objeto: any = {
+    propiedad: 'valor',
+    propiedadDos: 'valor2'
 };
 objeto.propiedad  // valor
 objeto.propiedadDos  // valor2
