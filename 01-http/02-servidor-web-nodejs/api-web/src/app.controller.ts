@@ -137,6 +137,13 @@ export class AppController {
             console.log('Numero valido');
         }
 
+        const cookieSegura = request.signedCookies.fechaServidor;
+        if(cookieSegura){
+            console.log('Cookie segura');
+        }else{
+            console.log('No es valida esta cookie');
+        }
+
         if (cookies.micookie) {
 
             const horaFechaServidor = new Date();
@@ -147,7 +154,8 @@ export class AppController {
                 'fechaServidor',      // NOMBRE (key)
                 new Date().getTime(),  // VALOR  (value)
                 {    // OPCIONES
-                    expires: horaFechaServidor
+                    // expires: horaFechaServidor
+                    signed: true
                 }
             );
 
