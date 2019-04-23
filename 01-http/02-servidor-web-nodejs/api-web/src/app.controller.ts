@@ -112,7 +112,10 @@ export class AppController {
     }
 
     @Get('/semilla')
-    semilla(@Request() request) {
+    semilla(
+        @Request() request,
+        @Response() response
+    ) {
         console.log(request.cookies);
         const cookies = request.cookies; // JSON
 
@@ -126,18 +129,31 @@ export class AppController {
             numero: cookies.numero
         };
         const resultado = Joi.validate(objetoValidacion,
-                                esquemaValidacionNumero);
+            esquemaValidacionNumero);
 
-        if(resultado.error){
+        if (resultado.error) {
             console.log('Resultado: ', resultado);
-        }else{
+        } else {
             console.log('Numero valido');
         }
 
         if (cookies.micookie) {
-            return 'ok'
+
+            const horaFechaServidor = new Date();
+            const minutos = horaFechaServidor.getMinutes();
+            horaFechaServidor.setMinutes(minutos + 1);
+
+            response.cookie(
+                'fechaServidor',      // NOMBRE (key)
+                new Date().getTime(),  // VALOR  (value)
+                {    // OPCIONES
+                    expires: horaFechaServidor
+                }
+            );
+
+            return response.send('ok');
         } else {
-            return ':('
+            return response.send(':(');
         }
 
     }
