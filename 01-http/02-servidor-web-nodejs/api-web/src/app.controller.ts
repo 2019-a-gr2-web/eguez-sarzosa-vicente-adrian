@@ -119,7 +119,7 @@ export class AppController {
         const esquemaValidacionNumero = Joi
             .object()
             .keys({
-                numero: Joi.number().integer()
+                numero: Joi.number().integer().required()
             });
 
         const objetoValidacion = {
