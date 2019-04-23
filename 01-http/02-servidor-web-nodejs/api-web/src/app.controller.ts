@@ -14,6 +14,12 @@ import {
 } from '@nestjs/common';
 import {AppService} from './app.service';
 
+
+import * as Joi from '@hapi/joi';
+
+// const Joi = require('@hapi/joi');
+
+
 // http://192.168.1.10:3000/segmentoInicial/segmentoAccion
 // http://192.168.1.10:3000/mascotas/crear
 // http://192.168.1.10:3000/mascotas/borrar
@@ -106,19 +112,35 @@ export class AppController {
     }
 
     @Get('/semilla')
-    semilla(@Request() request){
+    semilla(@Request() request) {
         console.log(request.cookies);
-        const cookies = request.cookies;
-        if(cookies.micookie){
-            return 'ok'
+        const cookies = request.cookies; // JSON
+
+        const esquemaValidacionNumero = Joi
+            .object()
+            .keys({
+                numero: Joi.number().integer()
+            });
+
+        const objetoValidacion = {
+            numero: cookies.numero
+        };
+        const resultado = Joi.validate(objetoValidacion,
+                                esquemaValidacionNumero);
+
+        if(resultado.error){
+            console.log('Resultado: ', resultado);
         }else{
+            console.log('Numero valido');
+        }
+
+        if (cookies.micookie) {
+            return 'ok'
+        } else {
             return ':('
         }
 
     }
-
-
-
 
 
     // js -> ts
