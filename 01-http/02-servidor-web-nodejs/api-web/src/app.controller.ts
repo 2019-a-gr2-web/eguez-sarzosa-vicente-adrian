@@ -139,7 +139,7 @@ export class AppController {
 
         const cookieSegura = request.signedCookies.fechaServidor;
         if(cookieSegura){
-            console.log('Cookie segura');
+            console.log('Cookie segura', cookieSegura);
         }else{
             console.log('No es valida esta cookie');
         }
