@@ -138,9 +138,9 @@ export class AppController {
         }
 
         const cookieSegura = request.signedCookies.fechaServidor;
-        if(cookieSegura){
+        if (cookieSegura) {
             console.log('Cookie segura', cookieSegura);
-        }else{
+        } else {
             console.log('No es valida esta cookie');
         }
 
@@ -164,6 +164,14 @@ export class AppController {
             return response.send(':(');
         }
 
+    }
+
+
+    @Get('inicio')
+    inicio(
+        @Response() res
+    ) {
+        return res.render('inicio');
     }
 
 
