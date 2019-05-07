@@ -178,6 +178,17 @@ export class AppController {
             });
     }
 
+    @Get('peliculas')
+    peliculas(
+        @Response() res
+    ) {
+        return res.render(
+            'peliculas/inicio',
+            {
+
+            });
+    }
+
 
     // js -> ts
 
