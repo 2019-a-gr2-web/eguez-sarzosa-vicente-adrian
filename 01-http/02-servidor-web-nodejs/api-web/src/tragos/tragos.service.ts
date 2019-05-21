@@ -7,14 +7,14 @@ export class TragosService {
     bddTragos: Trago[] = [];
     recnum = 1;
 
-    crear(nuevoTrago: Trago) {
+    crear(nuevoTrago: Trago):Trago {
         nuevoTrago.id = this.recnum;
         this.recnum++;
         this.bddTragos.push(nuevoTrago);
         return nuevoTrago;
     }
 
-    buscarPorId(id: number) {
+    buscarPorId(id: number):Trago {
         return this.bddTragos.find(
             (trago) => {
                 return trago.id === id;
@@ -22,7 +22,15 @@ export class TragosService {
         );
     }
 
-    eliminarPorId(id: number) {
+    buscarPorNombre(nombre: string):Trago {
+        return this.bddTragos.find(
+            (trago) => {
+                return trago.nombre.toUpperCase().includes(nombre.toUpperCase());
+            }
+        );
+    }
+
+    eliminarPorId(id: number):Trago[] {
         const indice = this.bddTragos.findIndex(
             (trago) => {
                 return trago.id === id
@@ -32,7 +40,7 @@ export class TragosService {
         return this.bddTragos;
     }
 
-    actualizar(tragoActualizado: Trago, id:number) {
+    actualizar(tragoActualizado: Trago, id:number):Trago[] {
 
         const indice = this.bddTragos.findIndex(
             (trago) => {
@@ -41,6 +49,8 @@ export class TragosService {
         );
         tragoActualizado.id = this.bddTragos[indice].id;
         this.bddTragos[indice] = tragoActualizado;
+
+        return this.bddTragos;
     }
 
 }
