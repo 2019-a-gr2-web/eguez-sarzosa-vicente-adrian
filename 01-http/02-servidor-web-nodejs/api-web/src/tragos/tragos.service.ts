@@ -7,6 +7,17 @@ export class TragosService {
     bddTragos: Trago[] = [];
     recnum = 1;
 
+    constructor(){
+        const traguito:Trago = {
+            nombre:'Pilsener',
+            gradosAlcohol:4.3,
+            fechaCaducidad: new Date(2019,5,10),
+            precio:1.75,
+            tipo:'Cerveza'
+        };
+        this.crear(traguito);
+    }
+
     crear(nuevoTrago: Trago):Trago {
         nuevoTrago.id = this.recnum;
         this.recnum++;
