@@ -51,6 +51,10 @@ export class TragosService {
 
     }
 
+    buscar(parametrosBusqueda?):Promise<TragosEntity[]>{
+        return this._tragosRepository.find(parametrosBusqueda);
+    }
+
     crear(nuevoTrago: Trago):Promise<Trago> {
         // nuevoTrago.id = this.recnum;
         // this.recnum++;
