@@ -1,7 +1,7 @@
 import {Column, PrimaryGeneratedColumn} from "typeorm";
 import {DistribuidorEntity} from "../../distribuidor/distribuidor.entity";
 
-export class TragosCreateDto {
+export class TragosUpdateDto {
 
     id:number;
 
