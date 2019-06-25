@@ -10,7 +10,7 @@ import {
     Param,
     Body,
     Request,
-    Response
+    Response, Session, Res
 } from '@nestjs/common';
 import {AppService} from './app.service';
 
@@ -32,6 +32,69 @@ export class AppController {
 
     constructor(private readonly appService: AppService) {
     }
+
+    @Get('session')
+    session(
+        @Query('nombre') nombre,
+        @Session() session
+    ){
+        console.log(session);
+
+        session.autenticado = true;
+
+        session.nombreUsuario = nombre;
+
+        return 'ok';
+    }
+
+    @Get('login')
+    loginVista(
+        @Res() res
+    ){
+        res.render('login');
+    }
+
+    @Post('login')
+    login(
+        @Body() usuario,
+        @Session() session,
+        @Res() res
+    ){
+        if(usuario.username === 'adrian' && usuario.password === '12345678'){
+            //    QUE HACEMOS
+            session.username = usuario.username;
+            res.redirect('/api/protegida');
+        }else{
+            res.status(400);
+            res.send({mensaje:'Error login',error:400})
+        }
+    }
+
+    @Get('logout')
+    logout(
+        @Res() res,
+        @Session() session,
+    ){
+        session.username = undefined;
+        session.destroy();
+        res.redirect('/api/login');
+    }
+
+
+    @Get('protegida')
+    protegida(
+        @Session() session,
+        @Res() res
+    ){
+        if(session.username){
+            res.render('protegida',{
+                nombre:session.username});
+        }else{
+            res.redirect('/api/login');
+        }
+    }
+
+
 
     // @Controller(segmentoAccion)
     @Get('/hello-world')  // METODO HTTP
