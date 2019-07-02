@@ -7,7 +7,17 @@
 <body>
     <!--<script src="socket.io.js"></script>-->
     <script src="/websockets/socket.io.js"></script>
-
+    <script>
+        const url = 'http://localhost:3001/websockets';
+        const socket = io(url);
+        console.log('Ya mismito nos conectamos :D');
+        socket.on(
+            'connect', // nombre del evento
+            ()=>{
+                console.log('Estamos conectados!!');
+            }
+        );
+    </script>
 
 </body>
 </html>
