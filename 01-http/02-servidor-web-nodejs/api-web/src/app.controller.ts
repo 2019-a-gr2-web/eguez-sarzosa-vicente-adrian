@@ -10,12 +10,13 @@ import {
     Param,
     Body,
     Request,
-    Response, Session, Res
+    Response, Session, Res, Render, UseInterceptors, UploadedFile
 } from '@nestjs/common';
 import {AppService} from './app.service';
 
 
 import * as Joi from '@hapi/joi';
+import {FileInterceptor} from "@nestjs/platform-express";
 
 // const Joi = require('@hapi/joi');
 
@@ -26,18 +27,46 @@ import * as Joi from '@hapi/joi';
 // @Controller(segmentoInicial)
 @Controller('/api')
 export class AppController {
-
     arregloUsuarios = [];
-
 
     constructor(private readonly appService: AppService) {
     }
+
+    @Get('subirArchivo/:idTrago')
+    @Render('archivo')
+    subirArchivo(
+        @Param('idTrago') idTrago
+    ) {
+        return {
+            idTrago: idTrago
+        };
+    }
+
+    @Post('subirArchivo/:idTrago')
+    @UseInterceptors(
+        FileInterceptor(
+            'imagen',
+            {
+                dest: __dirname + '/../archivos'
+            }
+        )
+    )
+    subirArchivoPost(
+        @Param('idTrago') idTrago,
+        @UploadedFile() archivo
+    ){
+        console.log(archivo);
+        return { mensaje: 'ok' };
+    }
+
+
+
 
     @Get('session')
     session(
         @Query('nombre') nombre,
         @Session() session
-    ){
+    ) {
         console.log(session);
 
         session.autenticado = true;
@@ -50,7 +79,7 @@ export class AppController {
     @Get('login')
     loginVista(
         @Res() res
-    ){
+    ) {
         res.render('login');
     }
 
@@ -59,14 +88,14 @@ export class AppController {
         @Body() usuario,
         @Session() session,
         @Res() res
-    ){
-        if(usuario.username === 'adrian' && usuario.password === '12345678'){
+    ) {
+        if (usuario.username === 'adrian' && usuario.password === '12345678') {
             //    QUE HACEMOS
             session.username = usuario.username;
             res.redirect('/api/protegida');
-        }else{
+        } else {
             res.status(400);
-            res.send({mensaje:'Error login',error:400})
+            res.send({mensaje: 'Error login', error: 400})
         }
     }
 
@@ -74,7 +103,7 @@ export class AppController {
     logout(
         @Res() res,
         @Session() session,
-    ){
+    ) {
         session.username = undefined;
         session.destroy();
         res.redirect('/api/login');
@@ -85,15 +114,15 @@ export class AppController {
     protegida(
         @Session() session,
         @Res() res
-    ){
-        if(session.username){
-            res.render('protegida',{
-                nombre:session.username});
-        }else{
+    ) {
+        if (session.username) {
+            res.render('protegida', {
+                nombre: session.username
+            });
+        } else {
             res.redirect('/api/login');
         }
     }
-
 
 
     // @Controller(segmentoAccion)
@@ -251,9 +280,7 @@ export class AppController {
     ) {
         return res.render(
             'peliculas/inicio',
-            {
-
-            });
+            {});
     }
 
 
