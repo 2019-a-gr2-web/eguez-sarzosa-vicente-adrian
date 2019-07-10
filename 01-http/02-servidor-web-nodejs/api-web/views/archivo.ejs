@@ -43,9 +43,9 @@
             const file = archivo.files[0];
             const reader = new FileReader();
             reader.onload = (eventoLecturaArchivo) => {
-                console.log(eventoLecturaArchivo.target.result);
-                const url = eventoLecturaArchivo.target.result;
 
+                const url = eventoLecturaArchivo.target.result;
+                console.log(url);
                 const imagenMuestra = document.getElementById('imagen-muestra');
                 imagenMuestra.src = url;
 

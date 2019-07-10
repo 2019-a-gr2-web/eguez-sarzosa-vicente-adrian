@@ -89,7 +89,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="ejs" value="3263" />
+          <entry key="ejs" value="3267" />
           <entry key="html" value="1756" />
           <entry key="json" value="3" />
           <entry key="ts" value="5790" />
@@ -97,7 +97,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="EJS" value="3263" />
+          <entry key="EJS" value="3267" />
           <entry key="HTML" value="1756" />
           <entry key="JSON" value="3" />
           <entry key="TypeScript" value="5790" />
@@ -180,8 +180,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/archivo.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="50" column="16" lean-forward="true" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+            <state relative-caret-position="197">
+              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
         </entry>
@@ -399,12 +399,12 @@
       <workItem from="1561489607264" duration="5108000" />
       <workItem from="1562094333144" duration="6366000" />
       <workItem from="1562699513711" duration="6165000" />
-      <workItem from="1562785585494" duration="6365000" />
+      <workItem from="1562785585494" duration="6495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110206000" />
+    <option name="totallyTimeSpent" value="110336000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
@@ -746,8 +746,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/archivo.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="50" column="16" lean-forward="true" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+        <state relative-caret-position="197">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
         </state>
       </provider>
     </entry>
