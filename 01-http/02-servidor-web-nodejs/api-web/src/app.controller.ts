@@ -59,6 +59,16 @@ export class AppController {
         return { mensaje: 'ok' };
     }
 
+    @Get('descargarArchivo/:idTrago')
+    descargarArchivo(
+        @Res() res,
+        @Param('idTrago') idTrago
+    ){
+        const originalname = 'Koala.jpg';
+        const path = 'C:\\Users\\USRKAP\\Documents\\GitHub\\eguez-sarzosa-vicente-adrian\\01-http\\02-servidor-web-nodejs\\api-web\\archivos\\76ef467242ce0169b95ec04eaceef036';
+        res.download(path, originalname);
+    }
+
 
 
 
